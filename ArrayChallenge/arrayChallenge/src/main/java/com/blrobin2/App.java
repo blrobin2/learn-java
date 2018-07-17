@@ -13,7 +13,8 @@ public final class App {
     }
 
     /**
-     * Says hello to the world.
+     * Get numbers from the user and print them sorted ascending.
+     *
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
@@ -27,6 +28,7 @@ public final class App {
         for (int i = 0; i < newArray.length; i++) {
             newArray[i] = scanner.nextInt();
         }
+
         return newArray;
     }
 
@@ -34,9 +36,9 @@ public final class App {
         int[] sortedArray = new int[array.length];
         int i = 0;
         while (array.length > 0) {
-            int smallest = findSmallestIndex(array);
-            sortedArray[i] = array[smallest];
-            array = removeAtIndex(array, smallest);
+            int largest = findLargestIndex(array);
+            sortedArray[i] = array[largest];
+            array = removeAtIndex(array, largest);
             i++;
         }
 
@@ -50,21 +52,21 @@ public final class App {
         System.out.println();
     }
 
-    private static int findSmallestIndex(int[] array) {
-        int smallest = array[0];
-        int smallestIndex = 0;
+    private static int findLargestIndex(int[] array) {
+        int largest = array[0];
+        int largestIndex = 0;
         for (int i = 1; i < array.length; i++) {
-            if (array[i] < smallest) {
-                smallest = array[i];
-                smallestIndex = i;
+            if (array[i] > largest) {
+                largest = array[i];
+                largestIndex = i;
             }
         }
-        return smallestIndex;
+
+        return largestIndex;
     }
 
     private static int[] removeAtIndex(int[] array, int index) {
         int[] newArr = new int[array.length - 1];
-
         for (int i = 0; i < index; i++) {
             newArr[i] = array[i];
         }
