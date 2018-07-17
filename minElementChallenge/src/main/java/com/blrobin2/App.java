@@ -16,29 +16,34 @@ public final class App {
      * @param args The arguments of the program.
      */
     public static void main(String[] args) {
-        System.out.print("Enter how many integers you will be inputting: ");
+        System.out.print("Enter count: ");
         int count = scanner.nextInt();
+        scanner.nextLine();
+
         int[] integers = readIntegers(count);
         int min = findMin(integers);
 
-        System.out.println("The minimum value is " + min);
+        System.out.println("min= " + min);
     }
 
     private static int[] readIntegers(int count) {
-        System.out.print("Enter " + count + " integers: ");
         int[] array = new int[count];
         for (int i = 0; i < array.length; i++) {
-            array[i] = scanner.nextInt();
+            System.out.println("Enter a number: ");
+            int number = scanner.nextInt();
+            scanner.nextLine();
+            array[i] = number;
         }
 
         return array;
     }
 
     private static int findMin(int[] integers) {
-        int min = integers[0];
-        for (int i = 1; i < integers.length; i++) {
-            if (integers[i] < min) {
-                min = integers[i];
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < integers.length; i++) {
+            int value = integers[i];
+            if (value < min) {
+                min = value;
             }
         }
 
