@@ -25,6 +25,7 @@ public final class App {
 
     private static int[] getIntegers(int size) {
         int[] newArray = new int[size];
+        System.out.println("Enter " + size + " interger values\n");
         for (int i = 0; i < newArray.length; i++) {
             newArray[i] = scanner.nextInt();
         }
@@ -34,12 +35,21 @@ public final class App {
 
     private static int[] sortIntegers(int[] array) {
         int[] sortedArray = new int[array.length];
-        int i = 0;
-        while (array.length > 0) {
-            int largest = findLargestIndex(array);
-            sortedArray[i] = array[largest];
-            array = removeAtIndex(array, largest);
-            i++;
+        for (int i = 0; i < array.length; i++) {
+            sortedArray[i] = array[i];
+        }
+        boolean flag = true;
+        int temp;
+        while (flag) {
+            flag = false;
+            for (int i = 0; i < sortedArray.length - 1; i++) {
+                if (sortedArray[i] < sortedArray[i + 1]) {
+                    temp = sortedArray[i];
+                    sortedArray[i] = sortedArray[i + 1];
+                    sortedArray[i + 1] = temp;
+                    flag = true;
+                }
+            }
         }
 
         return sortedArray;
@@ -47,33 +57,7 @@ public final class App {
 
     private static void printArray(int[] array) {
         for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
+            System.out.println("Element " + i + " contents " + array[i]);
         }
-        System.out.println();
-    }
-
-    private static int findLargestIndex(int[] array) {
-        int largest = array[0];
-        int largestIndex = 0;
-        for (int i = 1; i < array.length; i++) {
-            if (array[i] > largest) {
-                largest = array[i];
-                largestIndex = i;
-            }
-        }
-
-        return largestIndex;
-    }
-
-    private static int[] removeAtIndex(int[] array, int index) {
-        int[] newArr = new int[array.length - 1];
-        for (int i = 0; i < index; i++) {
-            newArr[i] = array[i];
-        }
-        for (int i = index; i < array.length - 1; i++) {
-            newArr[i] = array[i + 1];
-        }
-
-        return newArr;
     }
 }
