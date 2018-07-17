@@ -15,19 +15,18 @@ public final class App {
      */
     public static void main(String[] args) {
         int[] array = { 1, 2, 3, 4, 5, 6 };
-        System.out.println(Arrays.toString(array));
+        System.out.println("Array= " + Arrays.toString(array));
         reverse(array);
-        System.out.println(Arrays.toString(array));
+        System.out.println("Revsered array= " + Arrays.toString(array));
     }
 
     private static void reverse(int[] array) {
-        int length = array.length;
-        int temp, lastIndex;
-        for (int i = 0; i < (length / 2); i++) {
-            lastIndex = length - 1 - i;
-            temp = array[i];
-            array[i] = array[lastIndex];
-            array[lastIndex] = temp;
+        int maxIndex = array.length - 1;
+        int halfLength = array.length / 2;
+        for (int i = 0; i < halfLength; i++) {
+            int temp = array[i];
+            array[i] = array[maxIndex - i];
+            array[maxIndex - i] = temp;
         }
     }
 }
