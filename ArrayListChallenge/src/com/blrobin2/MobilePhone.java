@@ -3,13 +3,35 @@ package com.blrobin2;
 import java.util.ArrayList;
 
 public class MobilePhone {
-    private ArrayList<Contact> contacts = new ArrayList<>();
+    private String myNumber;
+    private ArrayList<Contact> contacts;
 
-    void addContact(String name, String phone) {
-        contacts.add(new Contact(name, phone));
+    MobilePhone(String myNumber) {
+        this.myNumber = myNumber;
+        this.contacts = new ArrayList<>();
     }
 
-    Contact getContact(String name) {
+    boolean addNewContact(Contact contact) {
+        if (findContact(contact.getName()) >= 0) {
+            return false;
+        }
+
+        contacts.add(contact);
+        return true;
+    }
+    
+    boolean updateContact(Contact oldContact, Contact newContact) {
+        int existingPosition = findContact(oldContact);
+        if (existingPosition < 0) {
+            System.out.println(oldContact.getName() + " was not found");
+            return false;
+        }
+        contacts.set(existingPosition, newContact);
+        System.out.println(oldContact.getName() + " was replaced with " + newContact.getName());
+        return true;
+    }
+
+    Contact queryContact(String name) {
         int position = findContact(name);
         if (position >= 0) {
             return contacts.get(position);
@@ -18,28 +40,31 @@ public class MobilePhone {
         return null;
     }
 
-    void editContact(String existingName, String newName, String newPhone) {
-        int existingPosition = findContact(existingName);
-        if (existingPosition >= 0) {
-            contacts.set(existingPosition, new Contact(newName, newPhone));
+    String queryContact(Contact contact) {
+        if (findContact(contact) > 0) {
+            return contact.getName();
         }
+        return null;
     }
 
-    void removeContact(String name) {
-        int position = findContact(name);
-        if (position >= 0) {
-            contacts.remove(position);
+    boolean removeContact(Contact contact) {
+        int existingPosition = findContact(contact);
+        if (existingPosition < 0) {
+            System.out.println(contact.getName() + " was not found");
+            return false;
         }
+        contacts.remove(contact);
+        System.out.println(contact.getName() + " was removed");
+        return true;
     }
+
 
     public String toString() {
-
         if (contacts.size() == 0) {
             return "No contacts yet.";
         }
 
         StringBuilder string = new StringBuilder();
-
         for (int i = 0; i < contacts.size(); i++) {
             Contact c = contacts.get(i);
             string.append("\n ")
@@ -52,17 +77,17 @@ public class MobilePhone {
         return string.toString();
     }
 
-    boolean hasContact(String name) {
-        return findContact(name) >= 0;
+    private int findContact(Contact contact) {
+        return this.contacts.indexOf(contact);
     }
 
-    private int findContact(String name) {
-        for (Contact c : contacts) {
-            if (c.getName().equals(name)) {
-                return contacts.indexOf(c);
+    private int findContact(String contactName) {
+        for (int i = 0; i < contacts.size(); i++) {
+            Contact contact = contacts.get(i);
+            if (contact.getName().equals(contactName)) {
+                return i;
             }
         }
-
         return -1;
     }
 }
