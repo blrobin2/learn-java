@@ -1,5 +1,6 @@
 package com.blrobin2;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public final class Main {
@@ -35,6 +36,8 @@ public final class Main {
                     searchForItem();
                     break;
                 case 6:
+                    processArrayList();
+                case 7:
                     quit = true;
                     break;
             }
@@ -49,7 +52,7 @@ public final class Main {
         System.out.println("\t 3 - To modify an item in the list.");
         System.out.println("\t 4 - To remove an item from the list.");
         System.out.println("\t 5 - To search for an item in the list.");
-        System.out.println("\t 6 - To quit the application.");
+        System.out.println("\t 7 - To quit the application.");
     }
 
     private static void addItem() {
@@ -70,7 +73,7 @@ public final class Main {
         String item = s.nextLine();
         groceryList.removeGroceryItem(item);
     }
-
+    
     private static void searchForItem() {
         System.out.println("Item to search for: ");
         String searchItem = s.nextLine();
@@ -79,5 +82,17 @@ public final class Main {
         } else {
             System.out.println(searchItem + " is not in the shopping list");
         }
+    }
+
+    private static void processArrayList() {
+        ArrayList<String> newArray = new ArrayList<>();
+        newArray.addAll(groceryList.getGroceryList());
+
+        // Shorthand for above
+        ArrayList<String> nextArray = new ArrayList<>(groceryList.getGroceryList());
+
+        // Way to convert ArrayList<String> to String[]
+        String[] myArray = new String[groceryList.getGroceryList().size()];
+        myArray = groceryList.getGroceryList().toArray(myArray);
     }
 }
