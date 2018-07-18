@@ -17,23 +17,41 @@ class GroceryList {
         }
     }
 
-    void modifyGroceryItem(int position, String newItem) {
+    void modifyGroceryItem(String currentItem, String newItem) {
+        int position = findItem(currentItem);
+        if (position >= 0) {
+            modifyGroceryItem(position, newItem);
+        }
+    }
+
+    private void modifyGroceryItem(int position, String newItem) {
         groceryList.set(position, newItem);
         System.out.println("Grocery item " + (position + 1) + " has been modified.");
     }
 
-    void removeGroceryItem(int position) {
-        String theItem = groceryList.get(position);
+    void removeGroceryItem(String item) {
+        int position = findItem(item);
+        if (position >= 0) {
+            removeGroceryItem(position);
+        }
+    }
+
+    private void removeGroceryItem(int position) {
         groceryList.remove(position);
     }
 
-    String findItem(String searchItem) {
+    private int findItem(String searchItem) {
         //boolean exists = groceryList.contains(searchItem);
-        int position = groceryList.indexOf(searchItem);
-        if (position >= 0) {
-            return groceryList.get(position);
-        }
+//        int position = groceryList.indexOf(searchItem);
+//        if (position >= 0) {
+//            return groceryList.get(position);
+//        }
+//
+//        return null;
+        return groceryList.indexOf(searchItem);
+    }
 
-        return null;
+    boolean onFile(String item) {
+        return findItem(item) >= 0;
     }
 }
