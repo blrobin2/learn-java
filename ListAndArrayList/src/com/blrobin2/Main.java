@@ -7,8 +7,6 @@ public final class Main {
     private static GroceryList groceryList = new GroceryList();
 
     public static void main(String[] args) {
-        //ArrayResize.main();
-
         boolean quit = false;
         int choice;
         printInstructions();
