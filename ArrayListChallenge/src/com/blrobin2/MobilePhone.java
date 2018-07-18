@@ -1,13 +1,12 @@
 package com.blrobin2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MobilePhone {
-    private String myNumber;
-    private ArrayList<Contact> contacts;
+    private List<Contact> contacts;
 
-    MobilePhone(String myNumber) {
-        this.myNumber = myNumber;
+    MobilePhone() {
         this.contacts = new ArrayList<>();
     }
 
@@ -41,13 +40,6 @@ public class MobilePhone {
             return contacts.get(position);
         }
 
-        return null;
-    }
-
-    String queryContact(Contact contact) {
-        if (findContact(contact) > 0) {
-            return contact.getName();
-        }
         return null;
     }
 
