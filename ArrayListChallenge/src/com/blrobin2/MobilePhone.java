@@ -3,11 +3,11 @@ package com.blrobin2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobilePhone {
+class MobilePhone {
     private List<Contact> contacts;
 
     MobilePhone() {
-        this.contacts = new ArrayList<>();
+        contacts = new ArrayList<>();
     }
 
     boolean addNewContact(Contact contact) {
