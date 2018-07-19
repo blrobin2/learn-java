@@ -3,61 +3,43 @@ package com.blrobin2;
 public class Main {
 
     public static void main(String[] args) {
-        Bank bank1 = Bank.openBank();
-        Bank bank2 = Bank.openBank();
-
-        Branch branch1 = Branch.openBranch();
-        Branch branch2 = Branch.openBranch();
-        Branch branch3 = Branch.openBranch();
-
-        addBranchToBank(branch1, bank1);
-        addBranchToBank(branch2, bank2);
-        addBranchToBank(branch3, bank2);
-
-        addBranchToBank(branch1, bank1);
-
-        Customer jeff = Customer.createCustomer("Jeff", 12.95);
-        Customer carl = Customer.createCustomer("Carl", 1.00);
-        Customer larry = Customer.createCustomer("Larry", 100.12);
-
-        addCustomerToBranchAtBank(jeff, branch1, bank1);
-        addCustomerToBranchAtBank(carl, branch2, bank2);
-        addCustomerToBranchAtBank(larry, branch3, bank2);
-
-        addCustomerToBranchAtBank(jeff, branch1, bank1);
-
-        transferMoneyAtBank(12.10, jeff, bank1);
-        transferMoneyAtBank(1.00, larry, bank1);
-
-        printBank(bank1);
-        printBank(bank2);
-    }
-
-    private static void addBranchToBank(Branch branch, Bank bank) {
-        if (bank.addBranch(branch)) {
-            System.out.println("Branch added to bank successfully.");
-        } else {
-            System.out.println("Failed to add branch to bank.");
+        Bank bank = new Bank("National Australia Bank");
+        if (bank.addBranch("Adelaide")) {
+            System.out.println("Adelaide branch created.");
         }
-    }
+        bank.addCustomer("Adelaide", "Tim", 50.05);
+        bank.addCustomer("Adelaide", "Mike",  175.34);
+        bank.addCustomer("Adelaide", "Percy", 220.12);
 
-    private static void addCustomerToBranchAtBank(Customer customer, Branch branch, Bank bank) {
-        if (bank.addCustomerToBranch(customer, branch)) {
-            System.out.println("Customer successfully added.");
-        } else {
-            System.out.println("Customer failed to be added to branch.");
+        bank.addBranch("Sydney");
+        bank.addCustomer("Sydney", "Bob", 150.4);
+
+        bank.addCustomerTransaction("Adelaide", "Tim", 44.22);
+        bank.addCustomerTransaction("Adelaide", "Tim", 12.44);
+        bank.addCustomerTransaction("Adelaide", "Mike", 1.65);
+
+        bank.listCustomers("Adelaide", true);
+        bank.listCustomers("Sydney", true);
+
+        if (!bank.listCustomers("Carlton", false)) {
+            System.out.println("Carlton branch does not exist.");
         }
-    }
 
-    private static void transferMoneyAtBank(double transaction, Customer customer, Bank bank) {
-        if (bank.addTransactionToCustomer(transaction, customer)) {
-            System.out.println("Transaction successful.");
-        } else {
-            System.out.println("Transaction failed.");
+        bank.addBranch("Melbourne");
+        if (!bank.addCustomer("Melbourne", "Brian", 5.53)) {
+            System.out.println("Error: Melbourne branch does not exist");
         }
-    }
 
-    private static void printBank(Bank bank) {
-        System.out.println(bank.printBank());
+        if(!bank.addBranch("Adelaide")) {
+            System.out.println("Adelaide branch already exists.");
+        }
+
+        if (!bank.addCustomerTransaction("Adelaide", "Fergus", 53.30)) {
+            System.out.println("Customer does not exist at branch");
+        }
+
+        if (!bank.addCustomer("Adelaide", "Tim", 12.21)) {
+            System.out.println("Customer Tim already exists");
+        }
     }
 }

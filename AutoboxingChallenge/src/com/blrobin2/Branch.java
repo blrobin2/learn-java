@@ -3,45 +3,48 @@ package com.blrobin2;
 import java.util.ArrayList;
 
 class Branch {
-    private ArrayList<Customer> customers = new ArrayList<>();
+    private String name;
+    private ArrayList<Customer> customers;
 
-    private Branch() {}
-
-    static Branch openBranch() {
-        return new Branch();
+    Branch(String name) {
+        this.name = name;
+        this.customers = new ArrayList<>();
     }
 
-    boolean addCustomer(Customer customer) {
-        if (hasCustomer(customer)) {
-            System.out.println("Customer already exists.");
-            return false;
+    String getName() {
+        return name;
+    }
+
+    ArrayList<Customer> getCustomers() {
+        return customers;
+    }
+
+    boolean newCustomer(String customerName, double initialAmount) {
+        if (findCustomer(customerName) == null) {
+            this.customers.add(new Customer(customerName, initialAmount));
+            return true;
         }
 
-        customers.add(customer);
-        System.out.println("Customer " + customer.getName() + " added.");
-        return true;
+        return false;
     }
 
-    boolean addTransactionToCustomer(double transaction, Customer customer) {
-        if (!hasCustomer(customer)) {
-            System.out.println(customer.getName() + " is not a customer at this branch.");
-            return false;
+    boolean addCustomerTransaction(String customerName, double amount) {
+        Customer existingCustomer = findCustomer(customerName);
+        if (existingCustomer != null) {
+            existingCustomer.addTransaction(amount);
+            return true;
         }
-        customer.addTransaction(transaction);
-        return true;
+
+        return false;
     }
 
-    boolean hasCustomer(Customer customer) {
-        return customers.indexOf(customer) >= 0;
-    }
-
-    String printBranch() {
-        StringBuilder string = new StringBuilder();
-        string.append("Branch: ");
+    private Customer findCustomer(String customerName) {
         for (Customer customer : customers) {
-            string.append("\n - ").append(customer.printCustomer());
+            if (customer.getName().equals(customerName)) {
+                return customer;
+            }
         }
 
-        return string.toString();
+        return null;
     }
 }
