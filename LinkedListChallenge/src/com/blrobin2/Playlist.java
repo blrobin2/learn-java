@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
-public class Playlist {
+class Playlist {
     private String title;
     private ArrayList<Album> ownedAlbums;
     private LinkedList<Song> songsInPlaylist;
 
-    public Playlist(String title) {
+    Playlist(String title) {
         this.title = title;
         this.ownedAlbums = new ArrayList<>();
         this.songsInPlaylist = new LinkedList<>();

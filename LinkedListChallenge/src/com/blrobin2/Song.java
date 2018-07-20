@@ -1,19 +1,19 @@
 package com.blrobin2;
 
-public class Song {
+class Song {
     private String title;
     private int duration;
 
-    public Song(String title, int duration) {
+    Song(String title, int duration) {
         this.title = title;
         this.duration = duration;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return title;
     }
 
-    public int getDuration() {
+    int getDuration() {
         return duration;
     }
 }

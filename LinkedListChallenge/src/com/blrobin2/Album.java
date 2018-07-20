@@ -2,7 +2,7 @@ package com.blrobin2;
 
 import java.util.ArrayList;
 
-public class Album {
+class Album {
     private String title;
     private ArrayList<Song> songs;
 
@@ -13,10 +13,6 @@ public class Album {
 
     String getTitle() {
         return title;
-    }
-
-    ArrayList<Song> getSongs() {
-        return songs;
     }
 
     Song getSongByTitle(String title) {
