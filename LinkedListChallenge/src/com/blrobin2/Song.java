@@ -2,9 +2,9 @@ package com.blrobin2;
 
 class Song {
     private String title;
-    private int duration;
+    private Double duration;
 
-    Song(String title, int duration) {
+    Song(String title, Double duration) {
         this.title = title;
         this.duration = duration;
     }
@@ -13,7 +13,8 @@ class Song {
         return title;
     }
 
-    int getDuration() {
-        return duration;
+    @Override
+    public String toString() {
+        return title + ": " + duration;
     }
 }
