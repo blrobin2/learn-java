@@ -1,28 +1,51 @@
 package com.blrobin2;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Saveable saveable = new Monster();
-        ArrayList<String> externalData = new ArrayList<>();
-        externalData.add("One");
-        externalData.add("Two");
-        externalData.add("Three");
-        saveable.set(externalData);
+        saveable.set(readValues());
         System.out.println(saveable.get());
 
         System.out.println(saveable.toString());
 
         saveable = new Hero();
-        ArrayList<Integer> otherExternalData = new ArrayList<>();
-        otherExternalData.add(1);
-        otherExternalData.add(2);
-        otherExternalData.add(3);
-        saveable.set(otherExternalData);
+        saveable.set(readValues());
         System.out.println(saveable.get());
 
         System.out.println(saveable.toString());
+    }
+
+    private static ArrayList<String> readValues() {
+        ArrayList<String> values = new ArrayList<>();
+
+        Scanner scanner = new Scanner(System.in);
+        boolean quit = false;
+        int index = 0;
+        System.out.println("Choose\n" +
+                "1 to enter a string\n" +
+                "0 to quit"
+        );
+
+        while (!quit) {
+            System.out.println("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice) {
+                case 0:
+                    quit = true;
+                    break;
+                case 1:
+                    System.out.println("Enter a string: ");
+                    String stringInput = scanner.nextLine();
+                    values.add(index, stringInput);
+                    index++;
+                    break;
+            }
+        }
+        return values;
     }
 }
