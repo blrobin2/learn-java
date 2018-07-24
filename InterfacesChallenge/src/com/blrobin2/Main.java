@@ -1,22 +1,28 @@
 package com.blrobin2;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        Saveable saveable = new Monster();
-        saveable.set(readValues());
-        System.out.println(saveable.get());
+        // Declaring as implementation
+        Hero hero = new Hero("Carl", 10, 15);
+        System.out.println(hero);
+        saveObject(hero);
 
-        System.out.println(saveable.toString());
+        hero.setHitPoints(8);
+        System.out.println(hero);
+        saveObject(hero);
+        loadObject(hero);
+        System.out.println(hero);
 
-        saveable = new Hero();
-        saveable.set(readValues());
-        System.out.println(saveable.get());
-
-        System.out.println(saveable.toString());
+        // Declaring as interface
+        Saveable werewolf = new Monster("Werewolf", 20, 40);
+        System.out.println(((Monster) werewolf).getStrength());
+        System.out.println(werewolf);
+        saveObject(werewolf);
     }
 
     private static ArrayList<String> readValues() {
@@ -47,5 +53,16 @@ public class Main {
             }
         }
         return values;
+    }
+
+    private static void saveObject(Saveable objectToSave) {
+        for (int i = 0; i < objectToSave.write().size(); i++) {
+            System.out.println("Saving " + objectToSave.write().get(i) + " to storage device");
+        }
+    }
+
+    private static void loadObject(Saveable objectToLoad) {
+        List<String> values = readValues();
+        objectToLoad.read(values);
     }
 }

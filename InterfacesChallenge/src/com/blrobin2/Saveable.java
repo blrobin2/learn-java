@@ -1,8 +1,8 @@
 package com.blrobin2;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface Saveable {
-    ArrayList get();
-    void set(ArrayList fields);
+    List<String> write();
+    void read(List<String> saveValues);
 }

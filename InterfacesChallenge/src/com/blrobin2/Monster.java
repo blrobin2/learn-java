@@ -1,27 +1,54 @@
 package com.blrobin2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Monster implements Saveable {
-    private ArrayList stats;
+    private String name;
+    private int hitPoints;
+    private int strength;
 
-    @Override
-    public ArrayList get() {
-        return stats;
+    public Monster(String name, int hitPoints, int strength) {
+        this.name = name;
+        this.hitPoints = hitPoints;
+        this.strength = strength;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+    public int getStrength() {
+        return strength;
     }
 
     @Override
-    public void set(ArrayList fields) {
-        this.stats = fields;
+    public List<String> write() {
+        List<String> values = new ArrayList<>();
+        values.add(0, name);
+        values.add(1, ""+hitPoints);
+        values.add(2, ""+strength);
+        return values;
+    }
+
+    @Override
+    public void read(List<String> saveValues) {
+        if (saveValues != null && saveValues.size() > 0) {
+            name = saveValues.get(0);
+            hitPoints = Integer.parseInt(saveValues.get(1));
+            strength = Integer.parseInt(saveValues.get(2));
+        }
     }
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Monster:");
-        for (Object stat : stats) {
-            stringBuilder.append(" -- ").append(stat.toString());
-        }
-        return stringBuilder.toString();
+        return "Monster{" + "name='" + name + '\'' +
+                ", hitPoints=" + hitPoints +
+                ", strength=" + strength +
+                '}';
     }
 }
