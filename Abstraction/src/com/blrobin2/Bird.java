@@ -1,6 +1,6 @@
 package com.blrobin2;
 
-abstract class Bird extends Animal {
+abstract class Bird extends Animal implements CanFly {
     Bird(String name) {
         super(name);
     }
@@ -15,5 +15,8 @@ abstract class Bird extends Animal {
         System.out.println("Breathe in, breathe out, repeat");
     }
 
-    abstract void fly();
+    @Override
+    public void fly() {
+        System.out.println(getName() + " is flapping its wings");
+    }
 }
