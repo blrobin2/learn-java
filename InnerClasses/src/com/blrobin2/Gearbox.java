@@ -12,7 +12,7 @@ class Gearbox {
     Gearbox(int maxGears) {
         this.maxGears = maxGears;
         this.gears = new ArrayList<>();
-        Gear neutral = new Gear(0, 0.0);
+        Gear neutral = new Gear(0.0);
         this.gears.add(neutral);
 
         for (int i = 1; i < maxGears; i++) {
@@ -26,7 +26,7 @@ class Gearbox {
 
     private void addGear(int number, double ratio) {
         if (number > 0 && number <= maxGears) {
-            this.gears.add(new Gear(number, ratio));
+            this.gears.add(new Gear(ratio));
         }
     }
 
@@ -49,11 +49,9 @@ class Gearbox {
     }
 
     private class Gear {
-        private int gearNumber;
         private double ratio;
 
-        Gear(int gearNumber, double ratio) {
-            this.gearNumber = gearNumber;
+        Gear(double ratio) {
             this.ratio = ratio;
         }
 
