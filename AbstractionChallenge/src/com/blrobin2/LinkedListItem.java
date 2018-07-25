@@ -1,7 +1,11 @@
 package com.blrobin2;
 
-class LinkedListItem extends ListItem {
-    LinkedListItem(String value) {
+class LinkedListItem<T> extends ListItem<T> {
+    LinkedListItem(T value) {
         super(value);
+    }
+
+    int compareTo(ListItem otherValue) {
+        return value().toString().compareTo(otherValue.value().toString());
     }
 }

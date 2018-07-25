@@ -1,11 +1,11 @@
 package com.blrobin2;
 
-abstract class ListItem {
+abstract class ListItem<T> {
     private ListItem next;
     private ListItem previous;
-    private String value;
+    private T value;
 
-    ListItem(String value) {
+    ListItem(T value) {
         this.value = value;
     }
 
@@ -25,11 +25,9 @@ abstract class ListItem {
         this.previous = previous;
     }
 
-    String value() {
+    T value() {
         return value;
     }
 
-    int compareTo(ListItem otherValue) {
-        return value.compareTo(otherValue.value());
-    }
+    abstract int compareTo(ListItem otherValue);
 }
