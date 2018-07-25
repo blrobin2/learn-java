@@ -6,21 +6,20 @@ import java.util.List;
 class Album {
     private String name;
     private String artist;
-    private SongList songList;
+    private SongList songs;
 
     Album(String name, String artist) {
         this.name = name;
         this.artist = artist;
-        this.songList = new SongList();
+        this.songs = new SongList();
     }
 
     boolean addSong(String title, Double duration) {
-        return songList.addSong(title, duration);
+        return songs.add(title, duration);
     }
 
     boolean addToPlaylist(int trackNumber, List<Song> playlist) {
-        int index = trackNumber - 1;
-        Song checkedSong = songList.findSong(index);
+        Song checkedSong = songs.findSong(trackNumber);
         if (checkedSong != null) {
             playlist.add(checkedSong);
             return true;
@@ -30,7 +29,7 @@ class Album {
     }
 
     boolean addToPlaylist(String title, List<Song> playlist) {
-        Song checkedSong = songList.findSong(title);
+        Song checkedSong = songs.findSong(title);
         if (checkedSong != null) {
             playlist.add(checkedSong);
             return true;
@@ -46,7 +45,7 @@ class Album {
             this.songs = new ArrayList<>();
         }
 
-        boolean addSong(String title, double duration) {
+        boolean add(String title, double duration) {
             if (findSong(title) != null) {
                 return false;
             }
@@ -63,7 +62,8 @@ class Album {
             return null;
         }
 
-        Song findSong(int index) {
+        Song findSong(int trackNumber) {
+            int index = trackNumber - 1;
             if (index >= 0 && index <= this.songs.size()) {
                 return this.songs.get(index);
             }
