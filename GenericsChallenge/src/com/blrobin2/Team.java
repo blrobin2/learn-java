@@ -34,7 +34,7 @@ public class Team<T extends Player> implements Comparable<Team<T>> {
         }
     }
 
-    private int ranking() {
+    int ranking() {
         if (played <= 0) {
             return Integer.MIN_VALUE;
         }
