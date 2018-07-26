@@ -29,20 +29,25 @@ public class LinkedList implements NodeList {
                     currentItem = currentItem.next();
                 } else {
                     // there is no next, so insert at end
-                    currentItem.setNext(newItem);
-                    newItem.setPrevious(currentItem);
+                    currentItem
+                            .setNext(newItem) // returns newItem
+                            .setPrevious(currentItem);
                     return true;
                 }
             } else if (comparison > 0) {
                 // newItem is less, insert before
                 if (currentItem.previous() != null) {
-                    currentItem.previous().setNext(newItem);
-                    newItem.setPrevious(currentItem.previous());
-                    newItem.setNext(currentItem);
-                    currentItem.setPrevious(newItem);
+                    currentItem.previous()
+                            .setNext(newItem)
+                            .setPrevious(currentItem.previous());
+                    newItem
+                            .setNext(currentItem)
+                            .setPrevious(newItem);
                 } else {
                     // the newNode is the new root
-                    newItem.setNext(this.root);
+                    newItem
+                            .setNext(this.root)
+                            .setPrevious(newItem);
                     this.root = newItem;
                 }
                 return true;
@@ -58,11 +63,42 @@ public class LinkedList implements NodeList {
 
     @Override
     public boolean removeItem(ListItem item) {
+        if (item == null) return false;
+        ListItem currentItem = this.root;
+        while (currentItem != null) {
+            int comparison = currentItem.compareTo(item);
+            if (comparison == 0) {
+                System.out.println("Deleting item " + currentItem.getValue());
+                if (currentItem == this.root) {
+                    this.root = currentItem.next();
+                } else {
+                    currentItem.previous().setNext(currentItem.next());
+                    if (currentItem.next() != null) {
+                        currentItem.next().setPrevious(currentItem.previous());
+                    }
+                }
+                return true;
+            } else if (comparison < 0) {
+                currentItem = currentItem.next();
+            } else {
+                // We are at an item greater than where it would be
+                return false;
+            }
+        }
+
+        // Haven't found item to delete
         return false;
     }
 
     @Override
     public void traverse(ListItem root) {
-
+        if (root == null) {
+            System.out.println("List is empty");
+            return;
+        }
+        while (root != null) {
+            System.out.println(root.getValue());
+            root = root.next();
+        }
     }
 }
