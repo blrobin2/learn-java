@@ -1,65 +1,68 @@
 package com.blrobin2;
 
-class LinkedList<T> {
-    private ListItem head;
+public class LinkedList implements NodeList {
+    private ListItem root = null;
 
-    ListItem next() {
-        return this.head;
+    public LinkedList(ListItem root) {
+        this.root = root;
     }
 
-    boolean add(T item) {
-        LinkedListItem<T> listItem = new LinkedListItem<>(item);
-        // No head yet, this is our first
-        if (this.head == null)
-            return addItemAsHead(listItem);
+    @Override
+    public ListItem getRoot() {
+        return this.root;
+    }
 
-        // Comes before Head
-        if (head.compareTo(listItem) > 0)
-            return addItemBeforeHead(listItem);
-
-        ListItem current = this.head.next();
-        while (current.next() != null) {
-            // Already added
-            if (current.compareTo(listItem) == 0) return false;
-            // Comes before current
-            if (current.compareTo(listItem) > 0)
-                return addItemBeforeCurrent(listItem, current);
-            current = current.next();
+    @Override
+    public boolean addItem(ListItem newItem) {
+        if (this.root == null) {
+            // Empty list, this is first item
+            this.root = newItem;
+            return true;
         }
 
-        // Comes just before last item
-        if (current.compareTo(listItem) > 0)
-            return addItemBeforeCurrent(listItem, current);
+        ListItem currentItem = this.root;
+        while (currentItem != null) {
+            int comparison = currentItem.compareTo(newItem);
+            if (comparison < 0) {
+                // newItem is greater, move right if possible
+                if (currentItem.next() != null) {
+                    currentItem = currentItem.next();
+                } else {
+                    // there is no next, so insert at end
+                    currentItem.setNext(newItem);
+                    newItem.setPrevious(currentItem);
+                    return true;
+                }
+            } else if (comparison > 0) {
+                // newItem is less, insert before
+                if (currentItem.previous() != null) {
+                    currentItem.previous().setNext(newItem);
+                    newItem.setPrevious(currentItem.previous());
+                    newItem.setNext(currentItem);
+                    currentItem.setPrevious(newItem);
+                } else {
+                    // the newNode is the new root
+                    newItem.setNext(this.root);
+                    this.root = newItem;
+                }
+                return true;
+            } else {
+                // Same!
+                System.out.println(newItem.getValue() + " is already present");
+                return false;
+            }
+        }
 
-        // Add to end
-        return addItemAfterCurrent(listItem, current);
+        return false;
     }
 
-    private boolean addItemAsHead(ListItem listItem) {
-        this.head = listItem;
-        return true;
+    @Override
+    public boolean removeItem(ListItem item) {
+        return false;
     }
 
-    private boolean addItemBeforeHead(ListItem listItem) {
-        ListItem temp = head;
-        this.head = listItem;
-        listItem.setNext(temp);
-        temp.setPrevious(this.head);
-        return true;
-    }
+    @Override
+    public void traverse(ListItem root) {
 
-    private boolean addItemBeforeCurrent(ListItem listItem, ListItem current) {
-        ListItem prev = current.previous();
-        prev.setNext(listItem);
-        current.setPrevious(listItem);
-        listItem.setNext(current);
-        listItem.setPrevious(prev);
-        return true;
-    }
-
-    private boolean addItemAfterCurrent(ListItem listItem, ListItem current) {
-        current.setNext(listItem);
-        listItem.setPrevious(current);
-        return true;
     }
 }

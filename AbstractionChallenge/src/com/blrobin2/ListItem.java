@@ -1,33 +1,27 @@
 package com.blrobin2;
 
-abstract class ListItem<T> {
-    private ListItem next;
-    private ListItem previous;
-    private T value;
+public abstract class ListItem {
+    protected ListItem rightLink = null;
+    protected ListItem leftLink = null;
 
-    ListItem(T value) {
+    protected Object value;
+
+    public ListItem(Object value) {
         this.value = value;
     }
 
-    ListItem next() {
-        return next;
-    }
+    abstract ListItem next();
+    abstract ListItem setNext(ListItem item);
+    abstract ListItem previous();
+    abstract ListItem setPrevious(ListItem item);
 
-    ListItem previous() {
-        return previous;
-    }
+    abstract int compareTo(ListItem item);
 
-     void setNext(ListItem next) {
-        this.next = next;
-    }
-
-    void setPrevious(ListItem previous) {
-        this.previous = previous;
-    }
-
-    T value() {
+    public Object getValue() {
         return value;
     }
 
-    abstract int compareTo(ListItem otherValue);
+    public void setValue(Object value) {
+        this.value = value;
+    }
 }
