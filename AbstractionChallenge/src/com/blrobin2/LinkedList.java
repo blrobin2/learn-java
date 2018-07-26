@@ -100,5 +100,11 @@ public class LinkedList implements NodeList {
             System.out.println(root.getValue());
             root = root.next();
         }
+
+        // We could write this recursively
+//        while (root != null) {
+//            System.out.println(root.getValue());
+//            traverse(root.next());
+//        }
     }
 }
